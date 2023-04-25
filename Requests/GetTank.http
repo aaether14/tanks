@@ -1,0 +1,3 @@
+@host = http://localhost:5000/api/v1/tanks/test
+
+GET {{ host }} 
