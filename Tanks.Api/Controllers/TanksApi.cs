@@ -1,5 +1,8 @@
+using System;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Tanks.Application.Queries;
 
 namespace Tanks.Api.Controllers;
 
@@ -7,12 +10,18 @@ namespace Tanks.Api.Controllers;
 [Route("api/v1")]
 public class TanksApi : ControllerBase
 {
-  
-    [HttpGet("tanks/{id}")]
-    public async Task<IActionResult> GetTankAsync(string id) 
+    private readonly IMediator _mediator;
+
+    public TanksApi(IMediator mediator)
     {
-        await Task.CompletedTask;
-        return Ok(id);
+        _mediator = mediator;
+    }
+
+    [HttpGet("tanks/{id}")]
+    public async Task<IActionResult> GetTankAsync(Guid id) 
+    {
+        GetTankQueryResult getTankQueryResult = await _mediator.Send(new GetTankQuery(id));
+        return Ok(getTankQueryResult);
     }
 
 }
