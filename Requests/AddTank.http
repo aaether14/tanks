@@ -1,0 +1,12 @@
+@host = http://localhost:5000/api/v1/tanks/add
+
+POST {{ host }} 
+Content-Type: application/json
+
+{
+    "Health": 5, 
+    "AttackMin": 3,
+    "AttackMax": 10,
+    "DefenseMin": 1,
+    "DefenseMax": 5
+}

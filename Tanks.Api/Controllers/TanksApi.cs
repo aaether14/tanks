@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Tanks.Application.Commands;
 using Tanks.Application.Queries;
 
 namespace Tanks.Api.Controllers;
@@ -21,7 +22,16 @@ public class TanksApi : ControllerBase
     public async Task<IActionResult> GetTankAsync(Guid id) 
     {
         GetTankQueryResult getTankQueryResult = await _mediator.Send(new GetTankQuery(id));
+
         return Ok(getTankQueryResult);
+    }
+
+    [HttpPost("tanks/add")]
+    public async Task<IActionResult> AddTankAsync([FromBody] CreateTankCommand createTankCommand)
+    {
+        Guid id = await _mediator.Send(createTankCommand);
+
+        return Ok(id);
     }
 
 }
