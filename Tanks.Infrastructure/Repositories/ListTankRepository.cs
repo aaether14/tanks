@@ -6,7 +6,7 @@ using Tanks.Domain.DomainModels;
 
 namespace Tanks.Infrastructure.Repositories;
 
-public class TankRepository : ITankRepository
+public class ListTankRepository : ITankRepository
 {
 
     private static readonly List<Tank> _tanks = new();
