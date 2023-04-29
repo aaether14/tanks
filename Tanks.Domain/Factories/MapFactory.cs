@@ -8,19 +8,16 @@ namespace Tanks.Domain.Factories;
 public class MapFactory
 {
 
-    private Func<int[,], Map> _mapConstructor;
-
     private int[,] _grid;
     private Random _random;
 
-    public MapFactory(Func<int[,], Map> mapConstructor, int width, int height)
+    public MapFactory(int width, int height)
     {
         if (width < 1 || height < 1)
         {
             throw new ArgumentOutOfRangeException("Cannot create a map with dimensions < 1.");
         }
 
-        _mapConstructor = mapConstructor;
         _grid = new int[height, width];
         _random = new Random();
     }
@@ -34,7 +31,7 @@ public class MapFactory
 
         CarvePassages(startX, startY);
 
-        return _mapConstructor(_grid);
+        return new Map(_grid);
     }
 
     private void InitializeLabyrinth()

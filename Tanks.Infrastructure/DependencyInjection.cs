@@ -23,7 +23,6 @@ public static class DependencyInjection
         BsonClassMap.RegisterClassMap<Map>(cm =>
         {
             cm.AutoMap();
-            cm.MapIdProperty(m => m.Id);
             cm.MapProperty(m => m.Grid).SetSerializer(new TwoDimensionalIntArraySerializer());
         });
     }

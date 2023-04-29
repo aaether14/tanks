@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Tanks.Application.Repositories;
 using Tanks.Domain.DomainModels;
+using Tanks.Domain.Factories;
 
 namespace Tanks.Application.Commands;
 
@@ -20,7 +21,7 @@ public class CreateRandomMapCommandHandler : IRequestHandler<CreateRandomMapComm
     public async Task<Guid> Handle(CreateRandomMapCommand request, CancellationToken cancellationToken)
     {
         // First, create generate the new map.
-        Map map = Map.GetFactory(request.width, request.height).CreateRandom();
+        Map map = new MapFactory(request.width, request.height).CreateRandom();
 
         // Then, add it to the repository.
         await _mapRepository.AddMapAsync(map);
