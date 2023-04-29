@@ -4,11 +4,11 @@ using Tanks.Domain.DomainModels;
 
 namespace Tanks.Application.Repositories;
 
-public interface ITankRepository
+public interface IMapRepository
 {
 
-    Task<Tank> GetTankByIdAsync(Guid id);
+    Task<Map> GetMapByIdAsync(Guid id);
 
-    Task AddTankAsync(Tank tank);
+    Task AddMapAsync(Map tank);
 
 }

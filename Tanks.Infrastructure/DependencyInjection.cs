@@ -14,7 +14,17 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services,
         ConfigurationManager configuration)
     {
+        RegisterSerializers();
         return services.AddRepositories(configuration);
+    }
+
+    private static void RegisterSerializers()
+    {
+        BsonClassMap.RegisterClassMap<Map>(cm =>
+              {
+                  cm.MapIdProperty(m => m.Id);
+                  cm.MapProperty(m => m.Grid).SetSerializer(new TwoDimensionalIntArraySerializer());
+              });
     }
 
     private static IServiceCollection AddRepositories(this IServiceCollection services,
@@ -32,6 +42,10 @@ public static class DependencyInjection
         services.AddSingleton<ITankRepository>(_ =>
         {
             return new MongoDbTankRepository(database.GetCollection<Tank>(MongoDbTankRepository.CollectionName));
+        });
+        services.AddSingleton<IMapRepository>(_ =>
+        {
+            return new MongoDbMapRepository(database.GetCollection<Map>(MongoDbMapRepository.CollectionName));
         });
 
         return services;

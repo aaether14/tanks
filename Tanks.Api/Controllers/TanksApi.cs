@@ -18,8 +18,8 @@ public class TanksApi : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet("tanks/{id}")]
-    public async Task<IActionResult> GetTankAsync(Guid id) 
+    [HttpGet("tanks/{tank_id}")]
+    public async Task<IActionResult> GetTankAsync([FromRoute(Name = "tank_id")] Guid id) 
     {
         GetTankQueryResult getTankQueryResult = await _mediator.Send(new GetTankQuery(id));
 
@@ -33,5 +33,22 @@ public class TanksApi : ControllerBase
 
         return Ok(id);
     }
+
+    [HttpGet("maps/{map_id}")]
+    public async Task<IActionResult> GetMapAsync([FromRoute(Name = "map_id")] Guid id)
+    {
+        GetMapQueryResult getMapQueryResult = await _mediator.Send(new GetMapQuery(id));
+
+        return Ok(getMapQueryResult);
+    }
+
+    [HttpPost("maps/add")]
+    public async Task<IActionResult> AddMapAsync([FromBody] CreateRandomMapCommand createRandomMapCommand)
+    {
+        Guid id = await _mediator.Send(createRandomMapCommand);
+
+        return Ok(id);
+    }
+
 
 }

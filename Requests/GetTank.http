@@ -1,4 +1,4 @@
-@id = c22b4c31-939b-4bfc-8655-aa0624683772
+@id = 61a05413-5e54-4bd7-bbd2-b76d6cdbae9c
 @host = http://localhost:5000/api/v1/tanks/{{ id }}
 
 GET {{ host }} 

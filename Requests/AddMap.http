@@ -1,0 +1,9 @@
+@host = http://localhost:5000/api/v1/maps/add
+
+POST {{ host }} 
+Content-Type: application/json
+
+{
+    "width": 50,
+    "height": 50
+}
