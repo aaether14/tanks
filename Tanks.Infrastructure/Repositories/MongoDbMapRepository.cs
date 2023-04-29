@@ -23,9 +23,12 @@ public class MongoDbMapRepository : IMapRepository
         return _mapCollection.InsertOneAsync(map);
     }
 
-    public async Task<Map> GetMapByIdAsync(Guid id)
+    public async Task<Map?> GetMapByIdAsync(Guid id)
     {
         var filter = Builders<Map>.Filter.Eq(entity => entity.Id, id);
-        return await (await _mapCollection.FindAsync(filter)).FirstAsync();
+
+        Map? map = await (await _mapCollection.FindAsync(filter)).FirstOrDefaultAsync();
+
+        return map;
     }
 }

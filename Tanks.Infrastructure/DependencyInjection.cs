@@ -21,10 +21,11 @@ public static class DependencyInjection
     private static void RegisterSerializers()
     {
         BsonClassMap.RegisterClassMap<Map>(cm =>
-              {
-                  cm.MapIdProperty(m => m.Id);
-                  cm.MapProperty(m => m.Grid).SetSerializer(new TwoDimensionalIntArraySerializer());
-              });
+        {
+            cm.AutoMap();
+            cm.MapIdProperty(m => m.Id);
+            cm.MapProperty(m => m.Grid).SetSerializer(new TwoDimensionalIntArraySerializer());
+        });
     }
 
     private static IServiceCollection AddRepositories(this IServiceCollection services,

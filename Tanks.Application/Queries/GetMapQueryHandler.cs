@@ -1,5 +1,7 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
+using MapsterMapper;
 using MediatR;
 using Tanks.Application.Repositories;
 using Tanks.Domain.DomainModels;
@@ -10,20 +12,27 @@ public class GetMapQueryHandler : IRequestHandler<GetMapQuery, GetMapQueryResult
 {
 
     private readonly IMapRepository _mapRepository;
+    private readonly IMapper _mapper;
 
-    public GetMapQueryHandler(IMapRepository mapRepository)
+    public GetMapQueryHandler(IMapRepository mapRepository, IMapper mapper)
     {
         _mapRepository = mapRepository;
+        _mapper = mapper;
     }
 
     public async Task<GetMapQueryResult> Handle(GetMapQuery request, CancellationToken cancellationToken)
     {
-        Map tank = await _mapRepository.GetMapByIdAsync(request.Id);
+        Map? map = await _mapRepository.GetMapByIdAsync(request.Id);
+
+        if (map is null)
+        {
+            throw new ArgumentException($"Cannot find any map with the id {request.Id}.");
+        }
         
-        return new GetMapQueryResult(
-            Id: tank.Id,
-            Grid: tank.Grid
-        );
+        // The map is the map where the tanks are deployed. 
+        // The mapper is the object we use to an object of a type to an object of a similar type.
+        // Unfortunate name conincidence. 
+        return _mapper.Map<GetMapQueryResult>(map);
     }
 }
 

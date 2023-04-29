@@ -1,4 +1,4 @@
-@id = 85280f7c-5547-4128-aae1-741f56f81d09
+@id = 8f9b4826-fc52-4c33-9f50-0a5379021ef6
 @host = http://localhost:5000/api/v1/maps/{{ id }}
 
 GET {{ host }} 

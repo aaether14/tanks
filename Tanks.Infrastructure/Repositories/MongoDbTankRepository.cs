@@ -23,9 +23,12 @@ public class MongoDbTankRepository : ITankRepository
         return _tankCollection.InsertOneAsync(tank);
     }
 
-    public async Task<Tank> GetTankByIdAsync(Guid id)
+    public async Task<Tank?> GetTankByIdAsync(Guid id)
     {
         var filter = Builders<Tank>.Filter.Eq(entity => entity.Id, id);
-        return await (await _tankCollection.FindAsync(filter)).FirstAsync();
+
+        Tank? tank = await (await _tankCollection.FindAsync(filter)).FirstOrDefaultAsync();
+
+        return tank;
     }
 }

@@ -7,7 +7,7 @@ namespace Tanks.Application.Repositories;
 public interface ITankRepository
 {
 
-    Task<Tank> GetTankByIdAsync(Guid id);
+    Task<Tank?> GetTankByIdAsync(Guid id);
 
     Task AddTankAsync(Tank tank);
 

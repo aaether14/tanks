@@ -1,5 +1,7 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
+using MapsterMapper;
 using MediatR;
 using Tanks.Application.Repositories;
 using Tanks.Domain.DomainModels;
@@ -10,23 +12,24 @@ public class GetTankQueryHandler : IRequestHandler<GetTankQuery, GetTankQueryRes
 {
 
     private readonly ITankRepository _tankRepository;
+    private readonly IMapper _mapper;
 
-    public GetTankQueryHandler(ITankRepository tankRepository)
+    public GetTankQueryHandler(ITankRepository tankRepository, IMapper mapper)
     {
         _tankRepository = tankRepository;
+        _mapper = mapper;
     }
 
     public async Task<GetTankQueryResult> Handle(GetTankQuery request, CancellationToken cancellationToken)
     {
-        Tank tank = await _tankRepository.GetTankByIdAsync(request.Id);
+        Tank? tank = await _tankRepository.GetTankByIdAsync(request.Id);
+
+        if (tank is null)
+        {
+            throw new ArgumentException($"Cannot find any tank with the id {request.Id}.");
+        }
         
-        return new GetTankQueryResult(
-            Id: tank.Id, 
-            Health: tank.Health,
-            AttackMin: tank.AttackMin,
-            AttackMax: tank.AttackMax,
-            DefenseMin: tank.DefenseMin,
-            DefenseMax: tank.DefenseMax);
+        return _mapper.Map<GetTankQueryResult>(tank);
     }
 }
 

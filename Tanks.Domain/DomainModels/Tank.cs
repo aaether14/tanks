@@ -4,20 +4,18 @@ namespace Tanks.Domain.DomainModels;
 
 public class Tank
 {
-    public Guid Id { get; private init; }
-    public uint Health { get; private set; }
-    public uint AttackMin { get; private init; }
-    public uint AttackMax { get; private init; }
-    public uint DefenseMin { get; private init; }
-    public uint DefenseMax { get; private init; }
+    public Guid Id { get; set; }
+    public uint Health { get; set; }
+    public uint AttackMin { get; set; }
+    public uint AttackMax { get; set; }
+    public uint DefenseMin { get; set; }
+    public uint DefenseMax { get; set; }
 
-    private Tank() {}
-
-    public static Tank Create(uint health, uint attackMin, uint attackMax, uint defenseMin, uint defenseMax)
+    public Tank(uint health, uint attackMin, uint attackMax, uint defenseMin, uint defenseMax)
     {
         if (health <= 0)
         {
-            throw new ArgumentException("Cannot create dead tank.");
+            throw new ArgumentException("Cannot create a dead tank.");
         }
         if (attackMin > attackMax)
         {
@@ -28,15 +26,12 @@ public class Tank
             throw new ArgumentException("DefenseMin has to be <= DefenseMax.");
         }
 
-        return new Tank()
-        {
-            Id = Guid.NewGuid(),
-            Health = health, 
-            AttackMin = attackMin,
-            AttackMax = attackMax, 
-            DefenseMin = defenseMin,
-            DefenseMax = defenseMax
-        };
+        Id = Guid.NewGuid();
+        Health = health;
+        AttackMin = attackMin;
+        AttackMax = attackMax;
+        DefenseMin = defenseMin;
+        DefenseMax = defenseMax;
     }
 
     public void TakeDamage(uint damage)
