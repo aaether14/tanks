@@ -68,15 +68,15 @@ public class LabyrinthMapFactory : IMapFactory
             }
         }
 
-        private List<Tuple<int, int>> GetRandomDirections()
+        private List<(int, int)> GetRandomDirections()
         {
-            var directions = new List<Tuple<int, int>>()
-        {
-            new Tuple<int, int>(0, -1), // Up
-            new Tuple<int, int>(1, 0),  // Right
-            new Tuple<int, int>(0, 1),  // Down
-            new Tuple<int, int>(-1, 0)  // Left
-        };
+            var directions = new List<(int, int)>()
+            {
+                (0, -1), // Up
+                (1, 0),  // Right
+                (0, 1),  // Down
+                (-1, 0)  // Left
+            };
 
             // Shuffle the directions randomly
             for (int i = 0; i < directions.Count; i++)

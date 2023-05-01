@@ -1,14 +1,18 @@
 using Mapster;
+using Tanks.Application.Commands;
 using Tanks.Application.Queries;
 using Tanks.Application.Utils;
 using Tanks.Domain.DomainModels;
 
 namespace Tanks.Application.Mappings;
 
-public class GetMapQueryResultMappingConfig : IRegister
+public class MappingConfigs : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
+        config.ForType<CreateTankCommand, Tank>()
+            .MapToConstructor(true);
+
         config.ForType<Map, GetMapQueryResult>()
             .Map(dest => dest.Grid, src => src.Grid.ToJaggedArray());
     }

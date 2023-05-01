@@ -5,25 +5,26 @@ namespace Tanks.Domain.DomainModels;
 public class Tank
 {
     public Guid Id { get; set; }
-    public uint Health { get; set; }
-    public uint AttackMin { get; set; }
-    public uint AttackMax { get; set; }
-    public uint DefenseMin { get; set; }
-    public uint DefenseMax { get; set; }
+    public int Health { get; set; }
+    public int AttackMin { get; set; }
+    public int AttackMax { get; set; }
+    public int DefenseMin { get; set; }
+    public int DefenseMax { get; set; }
+    public int Range { get; set; }
 
-    public Tank(uint health, uint attackMin, uint attackMax, uint defenseMin, uint defenseMax)
+    public Tank(int health, int attackMin, int attackMax, int defenseMin, int defenseMax, int range)
     {
         if (health <= 0)
         {
             throw new ArgumentException("Cannot create a dead tank.");
         }
-        if (attackMin > attackMax)
+        if (attackMin < 0 || attackMax < 0 || attackMin > attackMax)
         {
-            throw new ArgumentException("AttackMin has to be <= AttackMax.");
+            throw new ArgumentException("AttackMin has to be <= AttackMax. Both need to be >= 0.");
         }
-        if (defenseMin > defenseMax)
+        if (defenseMin < 0 || defenseMax < 0 || defenseMin > defenseMax)
         {
-            throw new ArgumentException("DefenseMin has to be <= DefenseMax.");
+            throw new ArgumentException("DefenseMin has to be <= DefenseMax. Both need tp be >= 0.");
         }
 
         Id = Guid.NewGuid();
@@ -34,8 +35,21 @@ public class Tank
         DefenseMax = defenseMax;
     }
 
-    public void TakeDamage(uint damage)
+    public int RollDamage(Random random)
     {
-        Health -= Math.Min(Health, damage);
+        return random.Next(AttackMin, AttackMax + 1);
     }
+
+    public void TakeDamage(int damage, Random random)
+    {
+        if (damage < 0)
+        {
+            throw new ArgumentException("Cannot take damage < 0.");
+        }
+
+        int rolledDefense = random.Next(DefenseMin, DefenseMax + 1);
+        damage = Math.Max(0, damage - rolledDefense);
+        Health = Math.Max(0, Health - damage);
+    }
+
 }

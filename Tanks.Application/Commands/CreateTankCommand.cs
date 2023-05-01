@@ -3,8 +3,9 @@ using MediatR;
 
 namespace Tanks.Application.Commands;
 
-public record CreateTankCommand(uint Health,
-                                uint AttackMin,
-                                uint AttackMax,
-                                uint DefenseMin,
-                                uint DefenseMax) : IRequest<Guid>;
+public record CreateTankCommand(int Health,
+                                int AttackMin,
+                                int AttackMax,
+                                int DefenseMin,
+                                int DefenseMax, 
+                                int Range) : IRequest<Guid>;

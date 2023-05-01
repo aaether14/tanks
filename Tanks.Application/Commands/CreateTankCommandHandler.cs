@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using MapsterMapper;
 using MediatR;
 using Tanks.Application.Repositories;
 using Tanks.Domain.DomainModels;
@@ -11,21 +12,19 @@ public class CreateTankCommandHandler : IRequestHandler<CreateTankCommand, Guid>
 {
 
     private readonly ITankRepository _tankRepository;
+    private readonly IMapper _mapper;
 
-    public CreateTankCommandHandler(ITankRepository tankRepository)
+    public CreateTankCommandHandler(ITankRepository tankRepository, IMapper mapper)
     {
         _tankRepository = tankRepository;
+        _mapper = mapper;
     }
 
     public async Task<Guid> Handle(CreateTankCommand request, CancellationToken cancellationToken)
     {
         // First, create the tank.
-        Tank tank = new Tank(health: request.Health,
-                             attackMin: request.AttackMin,
-                             attackMax: request.AttackMax,
-                             defenseMin: request.DefenseMin,
-                             defenseMax: request.DefenseMax);
-
+        Tank tank = _mapper.Map<Tank>(request);
+        
         // Then, add to repository.
         await _tankRepository.AddTankAsync(tank);
 
