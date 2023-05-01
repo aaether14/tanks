@@ -11,10 +11,10 @@ namespace Tanks.Application.Commands;
 public class CreateRandomMapCommandHandler : IRequestHandler<CreateRandomMapCommand, Guid>
 {
 
-    private readonly IMapRepository _mapRepository;
+    private readonly IRepository<Map, Guid> _mapRepository;
     private readonly IMapFactory _mapFactory;
 
-    public CreateRandomMapCommandHandler(IMapRepository mapRepository, IMapFactory mapFactory)
+    public CreateRandomMapCommandHandler(IRepository<Map, Guid> mapRepository, IMapFactory mapFactory)
     {
         _mapRepository = mapRepository;
         _mapFactory = mapFactory;
@@ -26,7 +26,7 @@ public class CreateRandomMapCommandHandler : IRequestHandler<CreateRandomMapComm
         Map map = _mapFactory.Create(request.width, request.height);
 
         // Then, add it to the repository.
-        await _mapRepository.AddMapAsync(map);
+        await _mapRepository.AddAsync(map);
 
         // Last, return the new map's id.
         return map.Id;

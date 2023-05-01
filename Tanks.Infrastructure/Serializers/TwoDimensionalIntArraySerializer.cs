@@ -3,6 +3,8 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
+namespace Tanks.Infrastructure.Serializers;
+
 public class TwoDimensionalIntArraySerializer : IBsonSerializer<int[,]>
 {
     public Type ValueType => typeof(int[,]);

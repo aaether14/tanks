@@ -2,7 +2,7 @@ using System;
 
 namespace Tanks.Domain.DomainModels;
 
-public class Map
+public class Map : IEntity<Guid>
 {
 
     public Guid Id { get; set; }

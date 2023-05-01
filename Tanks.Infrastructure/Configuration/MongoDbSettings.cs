@@ -6,4 +6,6 @@ public class MongoDbSettings
 
     public string ConnectionString { get; init; } = null!;
     public string DatabaseName { get; init; } = null!;
+    public MongoDbCollectionNames CollectionNames { get; init; } = null!;
+
 }

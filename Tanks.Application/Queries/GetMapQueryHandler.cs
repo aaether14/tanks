@@ -11,10 +11,10 @@ namespace Tanks.Application.Queries;
 public class GetMapQueryHandler : IRequestHandler<GetMapQuery, GetMapQueryResult>
 {
 
-    private readonly IMapRepository _mapRepository;
+    private readonly IRepository<Map, Guid> _mapRepository;
     private readonly IMapper _mapper;
 
-    public GetMapQueryHandler(IMapRepository mapRepository, IMapper mapper)
+    public GetMapQueryHandler(IRepository<Map, Guid> mapRepository, IMapper mapper)
     {
         _mapRepository = mapRepository;
         _mapper = mapper;
@@ -22,12 +22,7 @@ public class GetMapQueryHandler : IRequestHandler<GetMapQuery, GetMapQueryResult
 
     public async Task<GetMapQueryResult> Handle(GetMapQuery request, CancellationToken cancellationToken)
     {
-        Map? map = await _mapRepository.GetMapByIdAsync(request.Id);
-
-        if (map is null)
-        {
-            throw new ArgumentException($"Cannot find any map with the id {request.Id}.");
-        }
+        Map map = await _mapRepository.GetByIdAsync(request.Id);
         
         // The map is the map where the tanks are deployed. 
         // The mapper is the object we use to an object of a type to an object of a similar type.

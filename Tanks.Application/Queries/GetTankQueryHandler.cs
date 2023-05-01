@@ -11,10 +11,10 @@ namespace Tanks.Application.Queries;
 public class GetTankQueryHandler : IRequestHandler<GetTankQuery, GetTankQueryResult>
 {
 
-    private readonly ITankRepository _tankRepository;
+    private readonly IRepository<Tank, Guid> _tankRepository;
     private readonly IMapper _mapper;
 
-    public GetTankQueryHandler(ITankRepository tankRepository, IMapper mapper)
+    public GetTankQueryHandler(IRepository<Tank, Guid>tankRepository, IMapper mapper)
     {
         _tankRepository = tankRepository;
         _mapper = mapper;
@@ -22,7 +22,7 @@ public class GetTankQueryHandler : IRequestHandler<GetTankQuery, GetTankQueryRes
 
     public async Task<GetTankQueryResult> Handle(GetTankQuery request, CancellationToken cancellationToken)
     {
-        Tank? tank = await _tankRepository.GetTankByIdAsync(request.Id);
+        Tank? tank = await _tankRepository.GetByIdAsync(request.Id);
 
         if (tank is null)
         {

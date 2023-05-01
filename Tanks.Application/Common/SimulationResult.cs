@@ -1,0 +1,1 @@
+namespace Tanks.Application.Common;

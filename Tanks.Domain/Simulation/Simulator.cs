@@ -22,6 +22,10 @@ public class Simulator
         {
             throw new InvalidOperationException("At least 2 tanks are required for a simulation.");
         }
+        if (tanks.DistinctBy(t => t.Id).Count() < tanks.Count)
+        {
+            throw new InvalidOperationException("Simulating the battle requires passing distinct tanks.");
+        }
 
         List<ITankAction> actions = new();
         SimulationState simulationState = SimulationState.InitialState(tanks, map, random);

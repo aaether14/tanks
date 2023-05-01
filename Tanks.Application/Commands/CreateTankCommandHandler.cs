@@ -11,10 +11,10 @@ namespace Tanks.Application.Commands;
 public class CreateTankCommandHandler : IRequestHandler<CreateTankCommand, Guid>
 {
 
-    private readonly ITankRepository _tankRepository;
+    private readonly IRepository<Tank, Guid> _tankRepository;
     private readonly IMapper _mapper;
 
-    public CreateTankCommandHandler(ITankRepository tankRepository, IMapper mapper)
+    public CreateTankCommandHandler(IRepository<Tank, Guid> tankRepository, IMapper mapper)
     {
         _tankRepository = tankRepository;
         _mapper = mapper;
@@ -26,7 +26,7 @@ public class CreateTankCommandHandler : IRequestHandler<CreateTankCommand, Guid>
         Tank tank = _mapper.Map<Tank>(request);
         
         // Then, add to repository.
-        await _tankRepository.AddTankAsync(tank);
+        await _tankRepository.AddAsync(tank);
 
         // Last, return the the new tank's id.
         return tank.Id;

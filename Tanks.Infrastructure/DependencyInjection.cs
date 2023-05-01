@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization;
@@ -6,6 +7,7 @@ using Tanks.Application.Repositories;
 using Tanks.Domain.DomainModels;
 using Tanks.Infrastructure.Configuration;
 using Tanks.Infrastructure.Repositories;
+using Tanks.Infrastructure.Serializers;
 
 namespace Tanks.Infrastructure;
 
@@ -39,13 +41,13 @@ public static class DependencyInjection
         // Get database instance
         IMongoDatabase database = mongoClient.GetDatabase(mongoDbSettings.DatabaseName);
 
-        services.AddSingleton<ITankRepository>(_ =>
+        services.AddSingleton<IRepository<Tank, Guid>>(_ =>
         {
-            return new MongoDbTankRepository(database.GetCollection<Tank>(MongoDbTankRepository.CollectionName));
+            return new MongoDbRepository<Tank, Guid>(database.GetCollection<Tank>(mongoDbSettings.CollectionNames.Tanks));
         });
-        services.AddSingleton<IMapRepository>(_ =>
+        services.AddSingleton<IRepository<Map, Guid>>(_ =>
         {
-            return new MongoDbMapRepository(database.GetCollection<Map>(MongoDbMapRepository.CollectionName));
+            return new MongoDbRepository<Map, Guid>(database.GetCollection<Map>(mongoDbSettings.CollectionNames.Maps));
         });
 
         return services;

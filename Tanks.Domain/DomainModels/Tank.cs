@@ -2,7 +2,7 @@ using System;
 
 namespace Tanks.Domain.DomainModels;
 
-public class Tank
+public class Tank : IEntity<Guid>
 {
     public Guid Id { get; set; }
     public int Health { get; set; }
