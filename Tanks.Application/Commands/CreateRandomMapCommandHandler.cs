@@ -12,16 +12,18 @@ public class CreateRandomMapCommandHandler : IRequestHandler<CreateRandomMapComm
 {
 
     private readonly IMapRepository _mapRepository;
+    private readonly IMapFactory _mapFactory;
 
-    public CreateRandomMapCommandHandler(IMapRepository mapRepository)
+    public CreateRandomMapCommandHandler(IMapRepository mapRepository, IMapFactory mapFactory)
     {
         _mapRepository = mapRepository;
+        _mapFactory = mapFactory;
     }
 
     public async Task<Guid> Handle(CreateRandomMapCommand request, CancellationToken cancellationToken)
     {
-        // First, create generate the new map.
-        Map map = new MapFactory(request.width, request.height).CreateRandom();
+        // First,  create the new map;
+        Map map = _mapFactory.Create(request.width, request.height);
 
         // Then, add it to the repository.
         await _mapRepository.AddMapAsync(map);
