@@ -18,9 +18,10 @@ public class SimulationState
         Map = map;
     }
 
-    public SimulationState InitialState(List<Tank> tanks, Map map, Random random)
+    public static SimulationState InitialState(List<Tank> tanks, Map map, Random random)
     {
-        Dictionary<Guid, TankState> tankStates = tanks.Zip<Tank, (int, int)>(map.RandomEmptyPositions(random))
+        Dictionary<Guid, TankState> tankStates = 
+            tanks.Zip<Tank, (int, int)>(map.RandomEmptyPositions(random))
             .ToDictionary(p => p.First.Id, p => new TankState(p.First, p.Second));
 
         // If there are not enough random positions to spawn the give tanks at, issue an error. 

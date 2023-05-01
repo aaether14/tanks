@@ -9,11 +9,11 @@ namespace Tanks.Api.Controllers;
 
 [ApiController]
 [Route("api/v1")]
-public class TanksApi : ControllerBase
+public class TanksController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public TanksApi(IMediator mediator)
+    public TanksController(IMediator mediator)
     {
         _mediator = mediator;
     }

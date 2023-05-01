@@ -8,12 +8,9 @@ public static class TankExtensions
     public static bool CanShoot(this SimulationState.TankState shooterTankState, 
         SimulationState.TankState targetTankState, Map map)
     {
-        int shooterTankX = shooterTankState.Position.Item1;
-        int shooterTankY = shooterTankState.Position.Item2;
+        var (targetTankX, targetTankY) = targetTankState.Position;
+        var (shooterTankX, shooterTankY) = shooterTankState.Position;
         int shooterTankRange = shooterTankState.Tank.Range;
-
-        int targetTankX = targetTankState.Position.Item1;
-        int targetTankY = targetTankState.Position.Item2;
 
         if (map.Grid[shooterTankY, shooterTankX] == 1 || map.Grid[targetTankY, targetTankX] == 1)
         {

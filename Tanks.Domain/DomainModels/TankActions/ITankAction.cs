@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Tanks.Domain.Simulation;
 
 namespace Tanks.Domain.DomainModels.TankActions;

@@ -12,6 +12,8 @@ public class Tank
     public int DefenseMax { get; set; }
     public int Range { get; set; }
 
+    public bool Alive => Health > 0;
+
     public Tank(int health, int attackMin, int attackMax, int defenseMin, int defenseMax, int range)
     {
         if (health <= 0)

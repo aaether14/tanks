@@ -53,15 +53,15 @@ public class LabyrinthMapFactory : IMapFactory
 
             var directions = GetRandomDirections();
 
-            foreach (var direction in directions)
+            foreach (var (dx, dy) in directions)
             {
                 // Make sure we end up with a labyrinth-style grid.
-                int newX = x + direction.Item1 * 2;
-                int newY = y + direction.Item2 * 2;
+                int newX = x + dx * 2;
+                int newY = y + dy * 2;
 
                 if (IsInBounds(newX, newY) && _grid[newY, newX] == 1)
                 {
-                    _grid[y + direction.Item2, x + direction.Item1] = 0; // Carve a passage in between cells
+                    _grid[y + dy, x + dx] = 0; // Carve a passage in between cells
 
                     CarvePassages(newX, newY); // Recursively carve passages from the new cell
                 }

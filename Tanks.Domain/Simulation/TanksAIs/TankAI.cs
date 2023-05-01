@@ -4,9 +4,9 @@ using Tanks.Domain.DomainModels.TankActions;
 using Tanks.Domain.Simulation.PathFinding;
 using Tanks.Domain.Simulation.Utils;
 
-namespace Tanks.Domain.Simulation;
+namespace Tanks.Domain.Simulation.TanksAIs;
 
-public class TankAI 
+public class TankAI : ITankAI
 {
 
     private readonly Guid _controlledTankId;
