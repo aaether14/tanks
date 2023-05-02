@@ -51,6 +51,14 @@ public class TanksController : ControllerBase
         return Ok(id);
     }
 
+    [HttpGet("simulations/{simulation_id}")]
+    public async Task<IActionResult> GetSimulationAsync([FromRoute(Name = "simulation_id")] Guid id)
+    {
+        SimulationResult simulationResult = await _mediator.Send(new GetSimulationQuery(id));
+
+        return Ok(simulationResult);
+    }
+
     [HttpPost("simulate")]
     public async Task<IActionResult> SimulateAsync([FromBody] SimulateCommand simulateCommand)
     {
@@ -58,6 +66,5 @@ public class TanksController : ControllerBase
 
         return Ok(simulationResult);
     }
-
 
 }

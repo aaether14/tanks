@@ -22,7 +22,7 @@ public class GetTankQueryHandler : IRequestHandler<GetTankQuery, GetTankQueryRes
 
     public async Task<GetTankQueryResult> Handle(GetTankQuery request, CancellationToken cancellationToken)
     {
-        Tank? tank = await _tankRepository.GetByIdAsync(request.Id);
+        Tank tank = await _tankRepository.GetByIdAsync(request.Id);
         
         return _mapper.Map<GetTankQueryResult>(tank);
     }

@@ -9,10 +9,10 @@ namespace Tanks.Domain.Simulation;
 public class SimulationState
 {
 
-    public IReadOnlyDictionary<Guid, TankState> TankStates { get; }
-    public Map Map { get; }
+    public Dictionary<Guid, TankState> TankStates { get; set; }
+    public Map Map { get; set; }
 
-    private SimulationState(IReadOnlyDictionary<Guid, TankState> tankStates, Map map)
+    private SimulationState(Dictionary<Guid, TankState> tankStates, Map map)
     {
         TankStates = tankStates;
         Map = map;
@@ -21,7 +21,7 @@ public class SimulationState
     public static SimulationState InitialState(IReadOnlyList<Tank> tanks, Map map, Random random)
     {
         // For every tank, assign a random position on the map then create the TankState.
-        IReadOnlyDictionary<Guid, TankState> tankStates = 
+        Dictionary<Guid, TankState> tankStates = 
             tanks.Zip<Tank, (int, int)>(map.RandomEmptyPositions(random))
             .ToDictionary(p => p.First.Id, p => new TankState(p.First, p.Second));
 
@@ -37,7 +37,7 @@ public class SimulationState
     public class TankState
     {
 
-        public Tank Tank { get; }
+        public Tank Tank { get; set; }
         public (int, int) Position { get; set; }
 
         public TankState(Tank tank, (int, int) initialPosition)

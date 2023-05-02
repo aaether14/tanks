@@ -2,9 +2,12 @@ using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Options;
 using MongoDB.Driver;
 using Tanks.Application.Repositories;
 using Tanks.Domain.DomainModels;
+using Tanks.Domain.DomainModels.TankActions;
+using Tanks.Domain.Simulation;
 using Tanks.Infrastructure.Configuration;
 using Tanks.Infrastructure.Repositories;
 using Tanks.Infrastructure.Serializers;
@@ -27,6 +30,24 @@ public static class DependencyInjection
             cm.AutoMap();
             cm.MapProperty(m => m.Grid).SetSerializer(new TwoDimensionalIntArraySerializer());
         });
+
+        BsonClassMap.RegisterClassMap<SimulationState>(cm =>
+        {
+            cm.AutoMap();
+            var memberMap = cm.GetMemberMap(m => m.TankStates);
+            var serializer = memberMap.GetSerializer();
+            if (serializer is IDictionaryRepresentationConfigurable dictionaryRepresentationSerializer)
+            {
+                serializer = dictionaryRepresentationSerializer
+                    .WithDictionaryRepresentation(DictionaryRepresentation.ArrayOfDocuments);
+            }
+            memberMap.SetSerializer(serializer);
+        });
+
+        BsonSerializer.RegisterSerializer(new CustomTupleSerializer<int, int>());
+
+        BsonClassMap.RegisterClassMap<MoveTankAction>();
+        BsonClassMap.RegisterClassMap<DealDamageTankAction>();
     }
 
     private static IServiceCollection AddRepositories(this IServiceCollection services,
@@ -51,7 +72,7 @@ public static class DependencyInjection
         });
         services.AddSingleton<IRepository<Simulation, Guid>>(_ =>
         {
-            return new MongoDbRepository<Simulation, 
+            return new MongoDbRepository<Simulation,
                 Guid>(database.GetCollection<Simulation>(mongoDbSettings.CollectionNames.Simulations));
         });
 

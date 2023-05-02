@@ -1,0 +1,4 @@
+@id = 537e1716-d33f-4cab-a3af-d2125a6b6976
+@host = http://localhost:5000/api/v1/simulations/{{ id }}
+
+GET {{ host }} 
