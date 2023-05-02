@@ -1,12 +1,17 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Tanks.Api.Json;
 using Tanks.Application;
 using Tanks.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Services.AddControllers();
+
+    builder.Services.AddControllers()
+    .AddJsonOptions()
+        .AddJsonOptions();
+
     builder.Services.AddSwaggerGen();
 
     builder.Services.AddApplication();

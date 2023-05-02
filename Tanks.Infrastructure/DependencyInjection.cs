@@ -2,11 +2,9 @@ using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using Tanks.Application.Repositories;
 using Tanks.Domain.DomainModels;
-using Tanks.Domain.DomainModels.TankActions;
 using Tanks.Infrastructure.Configuration;
 using Tanks.Infrastructure.Repositories;
 using Tanks.Infrastructure.Serializers;
@@ -29,12 +27,6 @@ public static class DependencyInjection
             cm.AutoMap();
             cm.MapProperty(m => m.Grid).SetSerializer(new TwoDimensionalIntArraySerializer());
         });
-
-        // This looks very hacky and is required, apparently, only for the latest 2.19 release.
-        var objectSerializer = new ObjectSerializer(type => 
-            ObjectSerializer.DefaultAllowedTypes(type) || 
-            type!.FullName!.StartsWith("Tanks.Domain.DomainModels.TankActions"));
-        BsonSerializer.RegisterSerializer(objectSerializer);
     }
 
     private static IServiceCollection AddRepositories(this IServiceCollection services,

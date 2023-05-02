@@ -4,6 +4,6 @@ POST {{ host }}
 Content-Type: application/json
 
 {
-    "width": 10,
-    "height": 10
+    "width": 50,
+    "height": 50
 }
