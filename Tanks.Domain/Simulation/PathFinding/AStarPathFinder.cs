@@ -5,7 +5,7 @@ namespace Tanks.Domain.Simulation.PathFinding;
 
 public class AStarPathFinder : IPathFinder
 {
-    public List<(int, int)>? FindPath(int[,] grid, (int, int) start, (int, int) end)
+    public IReadOnlyList<(int, int)>? FindPath(int[,] grid, (int, int) start, (int, int) end)
     {
         int width = grid.GetLength(1);
         int height = grid.GetLength(0);

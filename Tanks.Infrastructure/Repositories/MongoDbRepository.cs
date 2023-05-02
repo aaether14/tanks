@@ -32,9 +32,9 @@ public class MongoDbRepository<T, TId> : IRepository<T, TId>
     {
         var filter = Builders<T>.Filter.Eq(entity => entity.Id, id);
 
-        T? item = await (await _collection.FindAsync(filter)).FirstOrDefaultAsync();
+        T? item = await (await _collection.FindAsync(filter)).SingleOrDefaultAsync();
 
         return item;
     }
-    
+
 }

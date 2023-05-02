@@ -23,11 +23,6 @@ public class GetTankQueryHandler : IRequestHandler<GetTankQuery, GetTankQueryRes
     public async Task<GetTankQueryResult> Handle(GetTankQuery request, CancellationToken cancellationToken)
     {
         Tank? tank = await _tankRepository.GetByIdAsync(request.Id);
-
-        if (tank is null)
-        {
-            throw new ArgumentException($"Cannot find any tank with the id {request.Id}.");
-        }
         
         return _mapper.Map<GetTankQueryResult>(tank);
     }

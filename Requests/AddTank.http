@@ -8,5 +8,6 @@ Content-Type: application/json
     "AttackMin": 3,
     "AttackMax": 10,
     "DefenseMin": 1,
-    "DefenseMax": 5
+    "DefenseMax": 5, 
+    "Range": 5
 }

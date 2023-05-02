@@ -1,0 +1,13 @@
+@host = http://localhost:5000/api/v1/simulate
+
+POST {{ host }} 
+Content-Type: application/json
+
+{
+    "TankIds": [
+        "232c4a5a-55d4-4244-8c66-e299828c199d", 
+        "ad7c4ac2-7938-4619-991b-f000ee8fe64e"
+    ], 
+    "MapId" : "d0047478-4349-469e-9e3e-89bd2a1a0c17",
+    "Seed": 42
+}

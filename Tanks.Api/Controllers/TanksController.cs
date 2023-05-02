@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Tanks.Application.Commands;
+using Tanks.Application.Common;
 using Tanks.Application.Queries;
 
 namespace Tanks.Api.Controllers;
@@ -48,6 +49,14 @@ public class TanksController : ControllerBase
         Guid id = await _mediator.Send(createRandomMapCommand);
 
         return Ok(id);
+    }
+
+    [HttpPost("simulate")]
+    public async Task<IActionResult> SimulateAsync([FromBody] SimulateCommand simulateCommand)
+    {
+        SimulationResult simulationResult = await _mediator.Send(simulateCommand);
+
+        return Ok(simulationResult);
     }
 
 

@@ -34,7 +34,7 @@ public class TankAI : ITankAI
         else 
         {
             // We assume there's always a path, because we generate maps such that they describe connected graphs.
-            List<(int, int)> path = _pathFinder.FindPath(simulationState.Map.Grid, controlledTankState.Position, 
+            IReadOnlyList<(int, int)> path = _pathFinder.FindPath(simulationState.Map.Grid, controlledTankState.Position, 
                 enemyTankState.Position)!;
             return new MoveTankAction(controlledTankState.Tank.Id, path[0]);
         }

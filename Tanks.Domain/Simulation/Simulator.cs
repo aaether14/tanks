@@ -16,7 +16,8 @@ public class Simulator
         _tankAIChooser = tankAIChooser;
     }
 
-    List<ITankAction> Simulate(List<Tank> tanks, Map map, Random random)
+    // Will return the tank that won the battle and the simulation steps.
+    public (Tank, IReadOnlyList<ITankAction>) Simulate(IReadOnlyList<Tank> tanks, Map map, Random random)
     {
         if (tanks.Count < 2)
         {
@@ -55,16 +56,22 @@ public class Simulator
                     continue;
                 }
 
-                actions.Add(tankAI.ComputeNextAction(simulationState, random));
+                ITankAction action = tankAI.ComputeNextAction(simulationState, random);
+                action.Execute(simulationState, random);
+
+                actions.Add(action);
             }
         }
 
         if (stepsSoFar >= maxSteps)
         {
-            throw new InvalidOperationException("Simulation stops because it was taking too long.");
+            throw new InvalidOperationException("Simulation stopped because it was taking too long.");
         }
 
-        return actions;
+        // If we didn't go past maxSteps, we know we only have one tank left, which is the winner of the battle.
+        var (winnerTank, _) = aliveTanksWithAIs[0];
+
+        return (winnerTank, actions);
     }
 
 }

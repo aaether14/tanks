@@ -17,7 +17,7 @@ public class InitialTankAIChooser : ITankAIChooser
     public ITankAI Choose(Tank tank, SimulationState simulationState)
     {
         Tank enemyTank = simulationState.TankStates.Values
-            .FirstOrDefault(s => !s.Tank.Id.Equals(tank))
+            .FirstOrDefault(s => !s.Tank.Id.Equals(tank.Id))
             ?.Tank 
             ?? throw new InvalidOperationException("Cannot find an enemy tank.");
 
