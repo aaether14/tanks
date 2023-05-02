@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Tanks.Api.Json;
@@ -7,6 +8,7 @@ using Tanks.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
+    builder.Configuration.AddEnvironmentVariables();
 
     builder.Services.AddControllers()
         .AddJsonOptions();
