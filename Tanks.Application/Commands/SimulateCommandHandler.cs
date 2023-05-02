@@ -9,6 +9,7 @@ using Tanks.Application.Repositories;
 using Tanks.Domain.DomainModels;
 using Tanks.Domain.Simulation;
 using MapsterMapper;
+using Force.DeepCloner;
 
 namespace Tanks.Application.Commands;
 
@@ -45,9 +46,15 @@ public class SimulateCommandHander : IRequestHandler<SimulateCommand, Simulation
         int seed = request.Seed ?? Random.Shared.Next();
         Random random = new Random(seed);
 
-        var (winnerTank, actions) = _simulator.Simulate(tanks, map, random);
+        SimulationState initialSimulationState = SimulationState.InitialState(tanks, map, random);
+        SimulationState initialSimulationStateCloned = initialSimulationState.DeepClone();
 
-        Simulation simulation = new Simulation(actions, winnerTank.Id, seed);
+        var (winnerTank, actions) = _simulator.Simulate(initialSimulationState, random);
+
+        Simulation simulation = new Simulation(winnerTank.Id,
+                                               seed,
+                                               initialSimulationStateCloned,
+                                               actions);
 
         await _simulationRepository.AddAsync(simulation);
 

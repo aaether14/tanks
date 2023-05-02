@@ -17,8 +17,13 @@ public class Simulator
     }
 
     // Will return the tank that won the battle and the simulation steps.
-    public (Tank, IReadOnlyList<ITankAction>) Simulate(IReadOnlyList<Tank> tanks, Map map, Random random)
+    public (Tank, IReadOnlyList<ITankAction>) Simulate(SimulationState simulationState, Random random)
     {
+        IReadOnlyList<Tank> tanks = simulationState.TankStates
+            .Select(kv => kv.Value.Tank)
+            .OrderBy(t => random.Next()) // The tanks start the simulation in a random order.
+            .ToList();
+
         if (tanks.Count < 2)
         {
             throw new InvalidOperationException("At least 2 tanks are required for a simulation.");
@@ -29,7 +34,6 @@ public class Simulator
         }
 
         List<ITankAction> actions = new();
-        SimulationState simulationState = SimulationState.InitialState(tanks, map, random);
 
         // For now, we stick to the strategy we choose at the very beginning of the simulation.
         List<(Tank, ITankAI)> aliveTanksWithAIs = tanks
@@ -38,7 +42,7 @@ public class Simulator
 
         // Set an upper bound in terms of simulation steps, twice the number of cells should be enough for any battle
         // that eventually finishes.
-        var (mapWidth, mapHeight) = map.Size;
+        var (mapWidth, mapHeight) = simulationState.Map.Size;
         int maxSteps = 2 * mapWidth * mapHeight;
         int stepsSoFar = 0;
 

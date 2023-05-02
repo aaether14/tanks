@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 {
 
     builder.Services.AddControllers()
-    .AddJsonOptions()
         .AddJsonOptions();
 
     builder.Services.AddSwaggerGen();

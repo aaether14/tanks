@@ -1,5 +1,8 @@
+using System;
+using System.Linq;
 using Mapster;
 using Tanks.Application.Commands;
+using Tanks.Application.Common;
 using Tanks.Application.Queries;
 using Tanks.Application.Utils;
 using Tanks.Domain.DomainModels;
@@ -15,5 +18,10 @@ public class MappingConfigs : IRegister
 
         config.ForType<Map, GetMapQueryResult>()
             .Map(dest => dest.Grid, src => src.Grid.ToJaggedArray());
+
+        config.ForType<Simulation, SimulationResult>()
+            .Map(dest => dest.Map, src => src.InitialState.Map)
+            .Map(dest => dest.InitialTankStates, src 
+                => src.InitialState.TankStates.Values);
     }
 }

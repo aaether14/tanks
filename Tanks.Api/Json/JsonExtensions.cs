@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization.Metadata;
 using Microsoft.Extensions.DependencyInjection;
+using Tanks.Application.Queries;
 using Tanks.Domain.DomainModels.TankActions;
 
 namespace Tanks.Api.Json;
@@ -17,6 +18,7 @@ public static class JsonExtensions
         mvcBuilder.AddJsonOptions(options =>
         {
             options.JsonSerializerOptions.Converters.Add(new TupleJsonConverter<int, int>());
+
             options.JsonSerializerOptions.TypeInfoResolver = new DefaultJsonTypeInfoResolver
             {
                 Modifiers =

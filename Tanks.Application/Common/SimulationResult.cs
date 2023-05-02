@@ -1,10 +1,16 @@
 using System;
 using System.Collections.Generic;
+using Tanks.Application.Queries;
 using Tanks.Domain.DomainModels.TankActions;
 
 namespace Tanks.Application.Common;
 
+public record SimulationTankState (GetTankQueryResult Tank,
+                                   (int, int) Position);
+
 public record SimulationResult(Guid Id,
-                               IReadOnlyList<ITankAction> Actions,
                                Guid WinnerId,
-                               int Seed);
+                               int Seed,
+                               IReadOnlyList<SimulationTankState> InitialTankStates,
+                               IReadOnlyList<ITankAction> Actions,
+                               GetMapQueryResult Map);
