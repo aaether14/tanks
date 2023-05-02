@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Tanks.Application.Repositories;
@@ -25,7 +26,7 @@ public class MongoDbRepository<T, TId> : IRepository<T, TId>
     public async Task<T> GetByIdAsync(TId id)
     {
         return await GetByIdOrDefaultAsync(id) 
-            ?? throw new Exception("replace!");
+            ?? throw new KeyNotFoundException($"Could not find element '{id}' of type {typeof(T).FullName}.");
     }
 
     public async Task<T?> GetByIdOrDefaultAsync(TId id)
