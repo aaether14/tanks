@@ -30,10 +30,10 @@ docker network ls
 docker network inspect tanks_mongo-network
 ```
 
-5. Finally, to start the TanksApi container and connect it to the MongoDB server, run the following command, replacing `test` with the appropriate connection string for your MongoDB server:
+5. Finally, to start the TanksApi container and connect it to the MongoDB server, run the following command, replacing `mongodb://172.19.0.2:27017` with the appropriate connection string for your MongoDB server:
 
 ```bash
-docker run -p 5000:80 --network=tanks_mongo-network -e MongoDbSettings__ConnectionString=test tanks-api
+docker run -p 5000:80 --network=tanks_mongo-network -e MongoDbSettings__ConnectionString="mongodb://172.19.0.2:27017" -e ASPNETCORE_ENVIRONMENT=Development tanks-api
 ```
 
-The TanksApi server will now be running on `http://localhost:5000` and connected to the MongoDB server. You can access the API by sending requests to this URL.
+The TanksApi server will now be running on http://localhost:5000. To access Swagger and explore the API documentation, open your web browser and go to http://localhost:5000/swagger.

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Tanks.Api.Controllers;
 
+[ApiExplorerSettings(IgnoreApi = true)]
 public class ErrorController : ControllerBase
 {
     
