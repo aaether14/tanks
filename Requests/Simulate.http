@@ -5,9 +5,9 @@ Content-Type: application/json
 
 {
     "TankIds": [
-        "e228a0c3-6c17-4655-85e2-50450031733a", 
-        "14cd09d2-776d-45d0-9e1f-abcd391a4137"
+        "0d9b997c-566b-4389-b9a2-83ec7fa9cc90", 
+        "ff882f3f-ee75-4018-9ebf-d562ad2760e0"
     ], 
-    "MapId" : "e69ee3e3-fc31-4908-80ac-e9b0800f772c",
+    "MapId" : "ff8d6cee-6c58-4433-98d5-e64c1912e9c7",
     "Seed": 42
 }
