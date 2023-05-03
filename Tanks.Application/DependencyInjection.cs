@@ -1,7 +1,10 @@
 using System.Reflection;
+using FluentValidation;
 using Mapster;
 using MapsterMapper;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Tanks.Application.Validation;
 using Tanks.Domain.Factories;
 using Tanks.Domain.Simulation;
 using Tanks.Domain.Simulation.PathFinding;
@@ -15,7 +18,8 @@ public static class DependencyInjection
     {
         return services
             .AddDependencies()
-            .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly))
+            .AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly)
+            .AddMediatR()
             .AddMapster();
     }
 
@@ -26,6 +30,13 @@ public static class DependencyInjection
             .AddSingleton<IPathFinder, AStarPathFinder>()
             .AddSingleton<ITankAIChooser, InitialTankAIChooser>()
             .AddSingleton<Simulator>();
+    }
+
+    private static IServiceCollection AddMediatR(this IServiceCollection services)
+    {
+        return services
+            .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly))
+            .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
     }
 
     private static IServiceCollection AddMapster(this IServiceCollection services)
