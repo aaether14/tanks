@@ -37,3 +37,14 @@ docker run -p 5000:80 --network=tanks_mongo-network -e MongoDbSettings__Connecti
 ```
 
 The TanksApi server will now be running on http://localhost:5000. To access Swagger and explore the API documentation, open your web browser and go to http://localhost:5000/swagger.
+
+## How to use
+
+1. Create 2 tanks by posting on the `api/v1/tanks/add` endpoint. Here's an [example](Requests/AddTank.http) of how this request should be made. Note down the unique ids the server responds with. 
+
+2. Create a map by posting on the `api/v1/maps/add` endpoint. Here's an [example](Requests/AddMap.http) of how this request should be made. Note down the 
+resulting id. 
+
+3. Simulate a battle between the 2 tanks by posting on the `api/v1/simulate` endpoint. Here's an [example](Requests/Simulate.http) of how this request should be made.
+
+4. Getting on `api/v1/tanks/{tank_id}`, `api/v1/maps/{map_id}` and `api/v1/simulations/{simulate_id}` will fetch the created resources.
