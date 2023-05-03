@@ -22,8 +22,8 @@ public class CreateRandomMapCommandHandler : IRequestHandler<CreateRandomMapComm
 
     public async Task<Guid> Handle(CreateRandomMapCommand request, CancellationToken cancellationToken)
     {
-        // First,  create the new map;
-        Map map = _mapFactory.Create(request.width, request.height);
+        // First, create the new map;
+        Map map = _mapFactory.Create(request.Width, request.Height);
 
         // Then, add it to the repository.
         await _mapRepository.AddAsync(map);
