@@ -11,7 +11,7 @@ using Tanks.Domain.Simulation;
 using MapsterMapper;
 using Force.DeepCloner;
 
-namespace Tanks.Application.Commands;
+namespace Tanks.Application.Commands.Simulate;
 
 public class SimulateCommandHander : IRequestHandler<SimulateCommand, SimulationResult>
 {

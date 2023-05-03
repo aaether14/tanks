@@ -6,7 +6,7 @@ using MediatR;
 using Tanks.Application.Repositories;
 using Tanks.Domain.DomainModels;
 
-namespace Tanks.Application.Commands;
+namespace Tanks.Application.Commands.CreateTank;
 
 public class CreateTankCommandHandler : IRequestHandler<CreateTankCommand, Guid>
 {

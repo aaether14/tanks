@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Tanks.Application.Queries;
+using Tanks.Application.Queries.GetMap;
+using Tanks.Application.Queries.GetTank;
 using Tanks.Domain.DomainModels.TankActions;
 
 namespace Tanks.Application.Common;

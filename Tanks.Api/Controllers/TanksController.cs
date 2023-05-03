@@ -2,9 +2,13 @@ using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Tanks.Application.Commands;
+using Tanks.Application.Commands.CreateRandomMap;
+using Tanks.Application.Commands.CreateTank;
+using Tanks.Application.Commands.Simulate;
 using Tanks.Application.Common;
-using Tanks.Application.Queries;
+using Tanks.Application.Queries.GetMap;
+using Tanks.Application.Queries.GetSimulation;
+using Tanks.Application.Queries.GetTank;
 
 namespace Tanks.Api.Controllers;
 

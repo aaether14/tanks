@@ -6,7 +6,7 @@ using MediatR;
 using Tanks.Application.Repositories;
 using Tanks.Domain.DomainModels;
 
-namespace Tanks.Application.Queries;
+namespace Tanks.Application.Queries.GetMap;
 
 public class GetMapQueryHandler : IRequestHandler<GetMapQuery, GetMapQueryResult>
 {

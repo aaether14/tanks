@@ -7,7 +7,7 @@ using Tanks.Application.Common;
 using Tanks.Application.Repositories;
 using Tanks.Domain.DomainModels;
 
-namespace Tanks.Application.Queries;
+namespace Tanks.Application.Queries.GetSimulation;
 
 public class GetSimulationQueryHandler : IRequestHandler<GetSimulationQuery, SimulationResult>
 {

@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace Tanks.Application.Commands;
+namespace Tanks.Application.Commands.CreateTank;
 
 public record CreateTankCommand(int Health,
                                 int AttackMin,

@@ -6,7 +6,7 @@ using Tanks.Application.Repositories;
 using Tanks.Domain.DomainModels;
 using Tanks.Domain.Factories;
 
-namespace Tanks.Application.Commands;
+namespace Tanks.Application.Commands.CreateRandomMap;
 
 public class CreateRandomMapCommandHandler : IRequestHandler<CreateRandomMapCommand, Guid>
 {

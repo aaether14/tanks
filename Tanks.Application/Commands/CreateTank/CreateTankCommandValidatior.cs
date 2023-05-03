@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Tanks.Application.Commands;
+namespace Tanks.Application.Commands.CreateTank;
 
 public class CreateTankCommandValidator : AbstractValidator<CreateTankCommand>
 {

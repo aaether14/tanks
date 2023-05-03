@@ -1,9 +1,7 @@
-using System;
-using System.Linq;
 using Mapster;
-using Tanks.Application.Commands;
+using Tanks.Application.Commands.CreateTank;
 using Tanks.Application.Common;
-using Tanks.Application.Queries;
+using Tanks.Application.Queries.GetMap;
 using Tanks.Application.Utils;
 using Tanks.Domain.DomainModels;
 

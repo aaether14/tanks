@@ -1,6 +1,6 @@
 using System;
 
-namespace Tanks.Application.Queries;
+namespace Tanks.Application.Queries.GetTank;
 
 public record GetTankQueryResult(Guid Id,
                                  int Health,
